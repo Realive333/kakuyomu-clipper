@@ -10,6 +10,7 @@ class WorkFactory:
         self.logger = logging.getLogger(__name__)
         self.works = []
         self.target_words = []
+        self.similar_wordlist = []
         
     def get_path(self, docType, dataType):
         try:
@@ -47,7 +48,15 @@ class WorkFactory:
             for row in rd:
                 rows.append({'label':row[0], 'name':row[1:]})
         self.target_words = rows[self.target-1]['name']
-            
+    
+    def load_similar_wordlist(self):
+        with open(f'/data/realive333/kakuyomu-dataset/morpheme/similarity/{self.target}/total_avg.tsv', encoding='utf-8') as f:
+            reader = csv.reader(f, delimiter='\t')
+            next(reader, None) # Skip headder
+            for row in reader:
+                self.similar_wordlist.append({'word': row[0], 'score': row[1]})
+        
+    
     def get_works(self):
         return self.works
     
@@ -56,5 +65,8 @@ class WorkFactory:
     
     def get_target_words(self):
         return self.target_words
+    
+    def get_similar_wordlist(self, list_length):
+        return [word['word'] for word in self.similar_wordlist[:list_length]]
         
         

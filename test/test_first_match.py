@@ -6,7 +6,7 @@ if module_path not in sys.path:
     
 import unittest
 from clipper.work_factory import WorkFactory
-from clipper.method import first_match
+from clipper.method import first_match, work_seperator
 
 class TestFirstMatch(unittest.TestCase):
     def setUp(self):
@@ -20,10 +20,10 @@ class TestFirstMatch(unittest.TestCase):
         self.target_words = self.wf.get_target_words()
         
     def test_calculate_length(self):
-        assertion = first_match.calculate_length(['いち', 'に', 'さん', 'し'])
+        assertion = work_seperator.calculate_length(['いち', 'に', 'さん', 'し'])
         self.assertEqual(assertion, 6)
         
     def test_first_match(self):
-        result = first_match.get_paragraph_list(self.test_work, self.target_words, 5)
+        result = first_match.get_list(self.test_work, self.target_words, 5)
         print(result)
         self.assertTrue(True)
