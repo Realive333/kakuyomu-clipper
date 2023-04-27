@@ -13,7 +13,7 @@ class TestFirstMatch(unittest.TestCase):
         self.wf = WorkFactory(42)
         self.wf.load_tsv('morpheme', 'test')
         self.wf.load_target_words()
-        self.wf.split_works()
+        #self.wf.split_works()
         self.test_work = self.wf.get_works()[251]
         self.target = self.wf.get_target()
         
@@ -24,6 +24,7 @@ class TestFirstMatch(unittest.TestCase):
         self.assertEqual(assertion, 6)
         
     def test_first_match(self):
-        result = first_match.get_list(self.test_work, self.target_words, 5)
+        split = work_seperator.splitter(self.test_work['text'])
+        result = first_match.get_list(split, self.target_words, 5)
         print(result)
         self.assertTrue(True)

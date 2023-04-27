@@ -29,7 +29,7 @@ class WorkFactory:
                 label = row[0]
                 text = row[1]
                 self.works.append({'label': label, 'text': text})
-                
+    """            
     def split_works(self):
         works = []
         for work in tqdm(self.works):
@@ -40,7 +40,7 @@ class WorkFactory:
             split_text.remove('')
             works.append({'label': label, 'text': text, 'split': split_text})
         self.works = works
-    
+    """
     def load_target_words(self):
         rows = []
         with open('/data/realive333/kakuyomu-dataset/numeric_label.tsv', encoding='utf-8') as f:

@@ -25,9 +25,10 @@ class Controller:
         results = []
         for work in tqdm(self.works):
             label = work['label']
+            split_text = work_seperator.splitter(work['text'])
             try:
-                assert work_seperator.calculate_length(work['split']) > self.delimiter_size * self.BERT_MAXIMUM_INPUT, 'Work length is shorter than expection'
-                paragraphs = first_match.get_list(work, self.target_words, self.delimiter_size)
+                assert work_seperator.calculate_length(split_text) > self.delimiter_size * self.BERT_MAXIMUM_INPUT, 'Work length is shorter than expection'
+                paragraphs = first_match.get_list(split_text, self.target_words, self.delimiter_size)
             except AssertionError as err:
                 print(err)
             results.append({'label': label, 'paragraphs': paragraphs})
@@ -37,9 +38,10 @@ class Controller:
         results = []
         for work in tqdm(self.works):
             label = work['label']
+            split_text = work_seperator.splitter(work['text'])
             try:
-                assert work_seperator.calculate_length(work['split']) > self.delimiter_size * self.BERT_MAXIMUM_INPUT, 'Work length is shorter than expection'
-                paragraphs = nearest_k.get_list(work, self.wordlist, self.offset, self.delimiter_size)
+                assert work_seperator.calculate_length(split_text) > self.delimiter_size * self.BERT_MAXIMUM_INPUT, 'Work length is shorter than expection'
+                paragraphs = nearest_k.get_list(split_text, self.wordlist, self.offset, self.delimiter_size)
             except AssertionError as err:
                 print(err)
             results.append({'label': label, 'paragraphs': paragraphs})

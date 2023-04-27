@@ -13,9 +13,6 @@ class TestFirstMatch(unittest.TestCase):
         self.wf = WorkFactory(42)
         self.wf.load_tsv('morpheme', 'test')
         self.wf.load_similar_wordlist()
-        
-        self.wf.split_works()
-        
         self.test_work = self.wf.get_works()[251]
         self.similar_wordlist = self.wf.get_similar_wordlist(10)
     
@@ -25,7 +22,8 @@ class TestFirstMatch(unittest.TestCase):
     
     def test_nearest_k(self):
         word_list = ['父', 'コー', '白鳥', '銃', 'ぼうや']
-        result = nearest_k.get_list(self.test_work, word_list, 256, 5)
+        split = work_seperator.splitter(self.test_work['text'])
+        result = nearest_k.get_list(split, word_list, 256, 5)
         for r in result:
             print(r)
             print('='*10)

@@ -41,9 +41,8 @@ def nearest_k_chunk(split_text, similar_wordlist, offset):
             best_paragraph = paragraph
     return (best_paragraph, best_score)
 
-def get_list(work, similar_wordlist, offset=256, sep_delimiter=1):
+def get_list(split_text, similar_wordlist, offset=256, sep_delimiter=1):
     paragraphs = []
-    split_text = work['split']
     chunks = list(work_seperator.seperate(split_text, len(split_text)//sep_delimiter))
     for chunk in chunks[:sep_delimiter]:
         try:

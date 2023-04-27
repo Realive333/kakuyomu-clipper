@@ -24,9 +24,8 @@ def first_match_chunk(chunk, target_words):
         if ct > 512:
             return 'no match', 'n', ' '.join(chunk[:idx])
 
-def get_list(work, target_words, sep_delimiter=1):
+def get_list(split_text, target_words, sep_delimiter=1):
     paragraphs = []
-    split_text = work['split']
     chunks = list(work_seperator.seperate(split_text, len(split_text)//sep_delimiter))
     for chunk in chunks[:sep_delimiter]:
         try:
