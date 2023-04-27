@@ -1,7 +1,7 @@
 import csv
 import sys
 csv.field_size_limit(sys.maxsize)
-
+from tqdm import tqdm
 import logging
 
 class WorkFactory:
@@ -25,14 +25,14 @@ class WorkFactory:
         path = self.get_path(docType, dataType)
         with open(path, 'r', encoding='utf-8') as file:
             rows = csv.reader(file, delimiter='\t')
-            for row in rows:
+            for row in tqdm(rows):
                 label = row[0]
                 text = row[1]
                 self.works.append({'label': label, 'text': text})
                 
     def split_works(self):
         works = []
-        for work in self.works:
+        for work in tqdm(self.works):
             label = work['label']
             text = work['text']
             text = text.replace('\n', '。 ')
@@ -55,7 +55,6 @@ class WorkFactory:
             next(reader, None) # Skip headder
             for row in reader:
                 self.similar_wordlist.append({'word': row[0], 'score': row[1]})
-        
     
     def get_works(self):
         return self.works
